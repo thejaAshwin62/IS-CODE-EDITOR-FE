@@ -54,6 +54,8 @@ const CodeEditor = () => {
   const [saveDescription, setSaveDescription] = useState("");
   const [saving, setSaving] = useState(false);
 
+  const BASE_URL = import.meta.env.VITE_API_URL
+
   const handleOpenSaveModal = () => {
     setSaveTitle("");
     setSaveDescription("");
@@ -241,7 +243,7 @@ body {
       const lineContent = model.getLineContent(position.lineNumber);
       const wordAtPosition = model.getWordAtPosition(position);
 
-      const response = await axios.post("/inline-completion", {
+      const response = await axios.post(`${BASE_URL}/inline-completion`, {
         code: currentCode,
         position: {
           lineNumber: position.lineNumber,
@@ -478,7 +480,7 @@ body {
     try {
       const currentCode = editorRef.current.getValue();
 
-      const response = await axios.post("/chat-code-modification", {
+      const response = await axios.post(`${BASE_URL}/chat-code-modification`, {
         message: promptInput,
         currentCode: currentCode,
         language: language,

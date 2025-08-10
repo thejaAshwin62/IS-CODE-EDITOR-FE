@@ -69,12 +69,14 @@ export default function SettingsPage() {
   const [isLoadingUsage, setIsLoadingUsage] = useState(true);
   const [usageError, setUsageError] = useState(null);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (!isLoaded || !user?.id) return;
 
       try {
-        const res = await axios.get(`/api/gemini-usage/stats/${user.id}`, {
+        const res = await axios.get(`${BASE_URL}/api/gemini-usage/stats/${user.id}`, {
           params: { days: 30 },
         });
         const data = res.data;
@@ -218,7 +220,7 @@ export default function SettingsPage() {
       setApiKeyError(null);
 
       try {
-        const response = await axios.get(`/api/user-api-key/status/${user.id}`);
+        const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
         setApiKeyStatus(response.data);
       } catch (error) {
         console.error("Error fetching API key status:", error);
@@ -238,13 +240,13 @@ export default function SettingsPage() {
       setIsLoadingApiKey(true);
       setApiKeyError(null);
 
-      await axios.post('/api/user-api-key/save', {
+      await axios.post(`${BASE_URL}/api/user-api-key/save`, {
         userId: user.id,
         apiKey: newKeyValue.trim(),
       });
 
       // Refresh the API key status
-      const response = await axios.get(`/api/user-api-key/status/${user.id}`);
+      const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
       setApiKeyStatus(response.data);
 
       setNewKeyLabel("Personal Gemini Key");
@@ -264,10 +266,10 @@ export default function SettingsPage() {
       setIsLoadingApiKey(true);
       setApiKeyError(null);
 
-      await axios.delete(`/api/user-api-key/delete/${user.id}`);
+      await axios.delete(`${BASE_URL}/api/user-api-key/delete/${user.id}`);
 
       // Refresh the API key status
-      const response = await axios.get(`/api/user-api-key/status/${user.id}`);
+      const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
       setApiKeyStatus(response.data);
     } catch (error) {
       console.error("Error deleting API key:", error);
@@ -292,13 +294,13 @@ export default function SettingsPage() {
       setIsLoadingApiKey(true);
       setApiKeyError(null);
 
-      await axios.post('/api/user-api-key/save', {
+      await axios.post(`${BASE_URL}/api/user-api-key/save`, {
         userId: user.id,
         apiKey: editingValue.trim(),
       });
 
       // Refresh the API key status
-      const response = await axios.get(`/api/user-api-key/status/${user.id}`);
+      const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
       setApiKeyStatus(response.data);
 
       setIsEditingApiKey(false);

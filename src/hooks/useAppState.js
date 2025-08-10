@@ -5,7 +5,7 @@ import axios from "axios";
 import { supabase, TABLES } from "../lib/supabase";
 
 // Configure axios base URL
-const BASE_URL = process.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const useAppState = () => {
   const { user } = useUser();
@@ -242,12 +242,15 @@ console.log(fibonacci(10));`
         chatInput.toLowerCase().includes("code");
 
       if (isCodeModRequest) {
-        const response = await axios.post(`${BASE_URL}/chat-code-modification`, {
-          message: chatInput,
-          currentCode: code,
-          language: language,
-          userId: user?.id,
-        });
+        const response = await axios.post(
+          `${BASE_URL}/chat-code-modification`,
+          {
+            message: chatInput,
+            currentCode: code,
+            language: language,
+            userId: user?.id,
+          }
+        );
 
         if (response.data.unchanged) {
           const aiMessage = {

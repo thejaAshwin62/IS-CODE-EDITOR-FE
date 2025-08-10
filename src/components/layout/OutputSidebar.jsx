@@ -41,7 +41,7 @@ const OutputSidebar = ({
   const [fontSize, setFontSize] = useState(14);
   const [lineNumbers, setLineNumbers] = useState(true);
 
-  axios.defaults.baseURL = import.meta.env.VITE_COMPILER_URL;
+  const BASE_URL = import.meta.env.VITE_COMPILER_URL;
 
   // Advanced output animation
   useEffect(() => {
@@ -74,7 +74,7 @@ const OutputSidebar = ({
 
     try {
       // Call your Judge0 compiler service
-      const response = await axios.post("/api/compiler/execute", {
+      const response = await axios.post(`${BASE_URL}/api/compiler/execute`, {
         sourceCode: code,
         language: language,
       });
@@ -184,7 +184,7 @@ Time: ${endTime - startTime}ms
 ${troubleshooting.map((step) => `   ${step}`).join("\n")}
 
 🌐 Service URL:
-    ${import.meta.env.VITE_API_URL}/api/compiler/execute`;
+    ${BASE_URL}/api/compiler/execute`;
 
       setOutput(errorOutput);
       setOutputType("error");

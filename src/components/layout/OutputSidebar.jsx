@@ -41,7 +41,7 @@ const OutputSidebar = ({
   const [fontSize, setFontSize] = useState(14);
   const [lineNumbers, setLineNumbers] = useState(true);
 
-  axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+  axios.defaults.baseURL = import.meta.env.VITE_COMPILER_URL;
 
   // Advanced output animation
   useEffect(() => {

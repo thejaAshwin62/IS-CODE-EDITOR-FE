@@ -60,7 +60,7 @@ const HomePage = () => {
       role: "Senior Developer at TechCorp",
       avatar: "/professional-woman-developer.png",
       content:
-        "AI Code Studio Pro has revolutionized my development workflow. The AI suggestions are incredibly accurate and save me hours every day.",
+        "IS-CODE-EDITOR has revolutionized my development workflow. The AI suggestions are incredibly accurate and save me hours every day.",
       rating: 5,
     },
     {
@@ -201,25 +201,34 @@ const HomePage = () => {
                 } backdrop-blur-xl shadow-lg`}
               >
                 <RiSparklingLine className="w-4 h-4" />
-                <span>Powered by Advanced AI Technology</span>
+                <span>Powered by Google Gemini</span>
+              </div>
+
+              {/* Logo */}
+              <div className=" flex justify-center">
+                <img
+                  src="/LOGO.png"
+                  alt="IS Code Editor Logo"
+                  className="w-28 h-28 md:w-36 md:h-36"
+                />
               </div>
 
               {/* Hero Title */}
               <h1
-                className={`text-6xl md:text-8xl font-bold mb-8 ${
+                className={`text-6xl md:text-8xl font-bold mb-1 ${
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 Code with
                 <span
-                  className={`block bg-gradient-to-r ${
+                  className={`  block bg-gradient-to-r ${
                     theme === "dark"
                       ? "from-emerald-400 via-blue-400 to-purple-400"
                       : "from-emerald-600 via-blue-600 to-purple-600"
                   } bg-clip-text text-transparent`}
                 >
-                  AI Superpowers
+                  IS CODE EDITOR
                 </span>
               </h1>
 
@@ -808,7 +817,6 @@ const HomePage = () => {
             transform: translateY(-20px);
           }
         }
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
       `}</style>
     </div>
   );

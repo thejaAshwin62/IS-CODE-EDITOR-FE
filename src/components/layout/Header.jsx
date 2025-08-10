@@ -6,6 +6,7 @@ import {
   RiHomeLine,
   RiFolderLine,
 } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({
   theme,
@@ -20,6 +21,12 @@ const Header = ({
   handleGoHome,
   handleShowCodeManager,
 }) => {
+  const navigate = useNavigate();
+
+  const goToHomePage = () => {
+    navigate("/"); 
+  };
+
   return (
     <header
       className={`border-b backdrop-blur-xl flex-shrink-0 transition-all duration-700 ease-in-out ${
@@ -45,27 +52,23 @@ const Header = ({
     >
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5">
         <div className="flex items-center space-x-3 sm:space-x-4 lg:space-x-6">
-          <div
-            className={`p-2 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl ${
-              theme === "dark"
-                ? "bg-gradient-to-br from-emerald-500/20 to-blue-500/20 border border-emerald-500/30 shadow-lg shadow-emerald-500/10"
-                : "bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 shadow-lg shadow-emerald-500/10"
-            }`}
-          >
-            <RiCodeLine
-              className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 ${
-                theme === "dark" ? "text-emerald-400" : "text-emerald-600"
-              }`}
-            />
-          </div>
+        <button onClick={goToHomePage}>
+            <img
+            src="/IS-LOGO.svg"
+            alt="IS Code Editor Logo"
+            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14"
+          />
+        </button>
           <div className="flex flex-col min-w-0">
-            <h1
-              className={`text-sm sm:text-lg lg:text-2xl font-bold truncate ${
-                theme === "dark" ? "text-white" : "text-gray-900"
-              }`}
-            >
-              IS CODE EDITOR
-            </h1>
+           
+              <h1
+                className={`text-sm sm:text-lg lg:text-2xl font-bold truncate ${
+                  theme === "dark" ? "text-white" : "text-gray-900"
+                }`}
+              >
+                IS CODE
+              </h1>
+           
             <div className="flex items-center space-x-2 sm:space-x-3 mt-1">
               {/* <div
                 className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium ${
@@ -116,12 +119,12 @@ const Header = ({
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
           {/* Breadcrumb Navigation */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             <button
               onClick={handleGoHome}
-              className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all duration-300 ${
+              className={`flex items-center space-x-1 px-2 py-1.5 rounded-lg transition-all duration-300 ${
                 currentRoute === "home"
                   ? theme === "dark"
                     ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
@@ -132,7 +135,7 @@ const Header = ({
               }`}
             >
               <RiHomeLine className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="text-xs sm:text-sm font-medium hidden sm:inline">
+              <span className="text-xs sm:text-sm font-medium hidden md:inline">
                 Home
               </span>
             </button>
@@ -162,7 +165,7 @@ const Header = ({
           {/* Code Manager Button */}
           <button
             onClick={handleShowCodeManager}
-            className={`flex items-center space-x-1 sm:space-x-2 lg:space-x-3 px-2 sm:px-3 lg:px-5 py-1.5 sm:py-2 lg:py-3 rounded-lg sm:rounded-xl transition-all duration-300 transform hover:scale-105 ${
+            className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${
               user
                 ? theme === "dark"
                   ? "bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-400 hover:from-blue-500/30 hover:to-indigo-500/30 border border-blue-500/30 shadow-blue-500/10"
@@ -175,11 +178,8 @@ const Header = ({
               !user ? "Sign in to access Code Manager" : "Open Code Manager"
             }
           >
-            <RiFolderLine className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
-            <span className="text-xs sm:text-sm font-medium hidden lg:inline">
-              {user ? "Code Manager" : "Sign in for Code Manager"}
-            </span>
-            <span className="text-xs sm:text-sm font-medium lg:hidden">
+            <RiFolderLine className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="text-xs sm:text-sm font-medium hidden md:inline">
               {user ? "Manager" : "Sign in"}
             </span>
           </button>
@@ -198,7 +198,7 @@ const Header = ({
                 toggleSidebar();
               }
             }}
-            className={`flex items-center space-x-1 sm:space-x-2 lg:space-x-3 px-2 sm:px-3 lg:px-5 py-1.5 sm:py-2 lg:py-3 rounded-lg sm:rounded-xl transition-all duration-300 transform hover:scale-105 ${
+            className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${
               sidebarOpen
                 ? theme === "dark"
                   ? "bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-400 border border-emerald-500/30 hover:from-emerald-500/30 hover:to-green-500/30 shadow-lg shadow-emerald-500/10"
@@ -209,17 +209,16 @@ const Header = ({
             }`}
             title={sidebarOpen ? "Close AI Assistant" : "Open AI Assistant"}
           >
-            <RiRobotLine className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
-            <span className="text-xs sm:text-sm font-medium hidden lg:inline">
-              {sidebarOpen ? "AI Assistant" : "AI Assistant"}
+            <RiRobotLine className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="text-xs sm:text-sm font-medium hidden md:inline">
+              AI
             </span>
-            <span className="text-xs sm:text-sm font-medium lg:hidden">AI</span>
           </button>
 
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className={`p-1.5 sm:p-2 lg:p-3 rounded-lg sm:rounded-xl transition-all duration-300 transform hover:scale-105 ${
+            className={`p-1.5 sm:p-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${
               theme === "dark"
                 ? "bg-gradient-to-r from-yellow-500/20 to-orange-500/20 hover:from-yellow-500/30 hover:to-orange-500/30 text-yellow-400 border border-yellow-500/30 shadow-lg shadow-yellow-500/10"
                 : "bg-gradient-to-r from-orange-500/20 to-red-500/20 hover:from-orange-500/30 hover:to-red-500/30 text-orange-500 border border-orange-500/30 shadow-lg shadow-orange-500/10"
@@ -227,9 +226,9 @@ const Header = ({
             title="Toggle Theme"
           >
             {theme === "dark" ? (
-              <RiSunLine className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
+              <RiSunLine className="w-3 h-3 sm:w-4 sm:h-4" />
             ) : (
-              <RiMoonLine className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
+              <RiMoonLine className="w-3 h-3 sm:w-4 sm:h-4" />
             )}
           </button>
         </div>

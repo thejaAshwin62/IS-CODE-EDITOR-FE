@@ -76,9 +76,12 @@ export default function SettingsPage() {
       if (!isLoaded || !user?.id) return;
 
       try {
-        const res = await axios.get(`${BASE_URL}/api/gemini-usage/stats/${user.id}`, {
-          params: { days: 30 },
-        });
+        const res = await axios.get(
+          `${BASE_URL}/api/gemini-usage/stats/${user.id}`,
+          {
+            params: { days: 30 },
+          }
+        );
         const data = res.data;
         if (data?.success) {
           // Store the API 'data' object (summary, dailyUsage, endpointUsage)
@@ -220,11 +223,15 @@ export default function SettingsPage() {
       setApiKeyError(null);
 
       try {
-        const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
+        const response = await axios.get(
+          `${BASE_URL}/api/user-api-key/status/${user.id}`
+        );
         setApiKeyStatus(response.data);
       } catch (error) {
         console.error("Error fetching API key status:", error);
-        setApiKeyError(error.response?.data?.error || "Failed to load API key status");
+        setApiKeyError(
+          error.response?.data?.error || "Failed to load API key status"
+        );
       } finally {
         setIsLoadingApiKey(false);
       }
@@ -246,7 +253,9 @@ export default function SettingsPage() {
       });
 
       // Refresh the API key status
-      const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
+      const response = await axios.get(
+        `${BASE_URL}/api/user-api-key/status/${user.id}`
+      );
       setApiKeyStatus(response.data);
 
       setNewKeyLabel("Personal Gemini Key");
@@ -269,7 +278,9 @@ export default function SettingsPage() {
       await axios.delete(`${BASE_URL}/api/user-api-key/delete/${user.id}`);
 
       // Refresh the API key status
-      const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
+      const response = await axios.get(
+        `${BASE_URL}/api/user-api-key/status/${user.id}`
+      );
       setApiKeyStatus(response.data);
     } catch (error) {
       console.error("Error deleting API key:", error);
@@ -300,7 +311,9 @@ export default function SettingsPage() {
       });
 
       // Refresh the API key status
-      const response = await axios.get(`${BASE_URL}/api/user-api-key/status/${user.id}`);
+      const response = await axios.get(
+        `${BASE_URL}/api/user-api-key/status/${user.id}`
+      );
       setApiKeyStatus(response.data);
 
       setIsEditingApiKey(false);
@@ -537,14 +550,17 @@ export default function SettingsPage() {
                       theme === "dark" ? "text-white" : "text-slate-900"
                     }`}
                   >
-                    {apiKeyStatus?.hasApiKey ? "Update" : "Add"} Personal API Key
+                    {apiKeyStatus?.hasApiKey ? "Update" : "Add"} Personal API
+                    Key
                   </h3>
                   <p
                     className={`text-xs ${
                       theme === "dark" ? "text-slate-400" : "text-slate-500"
                     }`}
                   >
-                    {apiKeyStatus?.usingSharedKey ? "Use your own Google Gemini API key" : "Update your stored API key"}
+                    {apiKeyStatus?.usingSharedKey
+                      ? "Use your own Google Gemini API key"
+                      : "Update your stored API key"}
                   </p>
                 </div>
               </div>
@@ -596,11 +612,13 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 {apiKeyError && (
-                  <div className={`text-xs p-2 rounded-lg ${
-                    theme === "dark" 
-                      ? "bg-red-500/10 text-red-300 border border-red-500/20" 
-                      : "bg-red-50 text-red-600 border border-red-200"
-                  }`}>
+                  <div
+                    className={`text-xs p-2 rounded-lg ${
+                      theme === "dark"
+                        ? "bg-red-500/10 text-red-300 border border-red-500/20"
+                        : "bg-red-50 text-red-600 border border-red-200"
+                    }`}
+                  >
                     {apiKeyError}
                   </div>
                 )}
@@ -618,7 +636,11 @@ export default function SettingsPage() {
                   }`}
                 >
                   <Save className="w-4 h-4" />
-                  {isLoadingApiKey ? "Saving..." : apiKeyStatus?.hasApiKey ? "Update Key" : "Save Key"}
+                  {isLoadingApiKey
+                    ? "Saving..."
+                    : apiKeyStatus?.hasApiKey
+                    ? "Update Key"
+                    : "Save Key"}
                 </button>
               </div>
             </div>
@@ -657,7 +679,10 @@ export default function SettingsPage() {
                         theme === "dark" ? "text-slate-400" : "text-slate-500"
                       }`}
                     >
-                      {isLoadingApiKey ? "Loading..." : apiKeyStatus?.message || "Manage your API key settings"}
+                      {isLoadingApiKey
+                        ? "Loading..."
+                        : apiKeyStatus?.message ||
+                          "Manage your API key settings"}
                     </p>
                   </div>
                 </div>
@@ -686,7 +711,13 @@ export default function SettingsPage() {
                       {isEditingApiKey ? (
                         <div className="space-y-3">
                           <div className="space-y-2">
-                            <label className={`text-xs ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}>
+                            <label
+                              className={`text-xs ${
+                                theme === "dark"
+                                  ? "text-slate-400"
+                                  : "text-slate-600"
+                              }`}
+                            >
                               New API Key
                             </label>
                             <input
@@ -733,8 +764,15 @@ export default function SettingsPage() {
                           >
                             {apiKeyStatus.maskedKey}
                           </div>
-                          <p className={`text-xs mt-2 ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
-                            Using your personal Google Gemini API key for all requests
+                          <p
+                            className={`text-xs mt-2 ${
+                              theme === "dark"
+                                ? "text-slate-400"
+                                : "text-slate-500"
+                            }`}
+                          >
+                            Using your personal Google Gemini API key for all
+                            requests
                           </p>
                         </>
                       )}
@@ -806,14 +844,28 @@ export default function SettingsPage() {
                   }`}
                 >
                   <div className="space-y-2">
-                    <div className={`text-lg font-medium ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
+                    <div
+                      className={`text-lg font-medium ${
+                        theme === "dark" ? "text-white" : "text-slate-900"
+                      }`}
+                    >
                       Using Shared API Key
                     </div>
-                    <p className={`text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}>
-                      No personal API key configured. You're using the application's shared Google Gemini API key.
+                    <p
+                      className={`text-sm ${
+                        theme === "dark" ? "text-slate-400" : "text-slate-500"
+                      }`}
+                    >
+                      No personal API key configured. You're using the
+                      application's shared Google Gemini API key.
                     </p>
-                    <p className={`text-xs ${theme === "dark" ? "text-slate-500" : "text-slate-400"}`}>
-                      Add your own API key above to use your personal quota and billing.
+                    <p
+                      className={`text-xs ${
+                        theme === "dark" ? "text-slate-500" : "text-slate-400"
+                      }`}
+                    >
+                      Add your own API key above to use your personal quota and
+                      billing.
                     </p>
                   </div>
                 </div>
@@ -825,8 +877,6 @@ export default function SettingsPage() {
 
       {/* Page styles for inverted corners and animations */}
       <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
         html,
         body,
         :root {

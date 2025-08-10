@@ -64,7 +64,7 @@ const Header = ({
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
-              AI Code Studio Pro
+              IS CODE EDITOR
             </h1>
             <div className="flex items-center space-x-2 sm:space-x-3 mt-1">
               {/* <div

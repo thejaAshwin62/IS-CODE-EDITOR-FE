@@ -5,7 +5,7 @@ import axios from "axios";
 import { supabase, TABLES } from "../lib/supabase";
 
 // Configure axios base URL
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 export const useAppState = () => {
   const { user } = useUser();

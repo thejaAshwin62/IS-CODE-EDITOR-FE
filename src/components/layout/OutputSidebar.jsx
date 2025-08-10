@@ -41,6 +41,8 @@ const OutputSidebar = ({
   const [fontSize, setFontSize] = useState(14);
   const [lineNumbers, setLineNumbers] = useState(true);
 
+  axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
   // Advanced output animation
   useEffect(() => {
     if (output && !isRunning) {
@@ -72,13 +74,10 @@ const OutputSidebar = ({
 
     try {
       // Call your Judge0 compiler service
-      const response = await axios.post(
-        "http://localhost:5432/api/compiler/execute",
-        {
-          sourceCode: code,
-          language: language,
-        }
-      );
+      const response = await axios.post("/api/compiler/execute", {
+        sourceCode: code,
+        language: language,
+      });
 
       const endTime = Date.now();
       setExecutionTime(endTime - startTime);
@@ -170,7 +169,6 @@ Time: ${endTime - startTime}ms
         errorMessage = "No response from compiler service";
         troubleshooting = [
           "• Ensure compiler service is running",
-          "• Check http://localhost:5432/health",
           "• Restart the compiler service",
         ];
       }
@@ -186,7 +184,7 @@ Time: ${endTime - startTime}ms
 ${troubleshooting.map((step) => `   ${step}`).join("\n")}
 
 🌐 Service URL:
-   http://localhost:5432/api/compiler/execute`;
+    ${import.meta.env.VITE_API_URL}/api/compiler/execute`;
 
       setOutput(errorOutput);
       setOutputType("error");
